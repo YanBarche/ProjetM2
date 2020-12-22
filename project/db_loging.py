@@ -5,7 +5,7 @@ def Connection_Database():
     try:
         connection = mariadb.connect(
             user = "root",
-            password="",
+            password="testyan",
             host = "127.0.0.1",
             database = "projetm2"
         )
@@ -73,3 +73,21 @@ def check_password(username,password):
         curs.close()
         connection.close()
     return check    
+
+def get_data(database):
+    result = None
+    try:
+        connection = Connection_Database()
+        curs = connection.cursor()
+        query = "SELECT * FROM {}".format(database)
+        curs.execute(query)
+        result = curs.fetchall()
+        for row in result:
+           print(row)
+    except mariadb.Error as e:
+        print(f"Error connecting to MariaDB Platform: {e}")
+        sys.exit(1)
+    finally:
+        curs.close()
+        connection.close()
+    return result
