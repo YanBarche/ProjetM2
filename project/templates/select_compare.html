@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Select Country:
+</h1>
+<form method="POST" action="/compare">
+    <select id=country name="country">
+      <option value="france" label="France" selected></option>
+      <option value="spain" label="Spain"></option>
+      <option value="uk" label="United Kingdom"></option>
+    </select>
+    <select name="country2">
+        <option value="france" label="France" selected></option>
+        <option value="spain" label="Spain"></option>
+        <option value="uk" label="United Kingdom"></option>
+      </select>
+    <input type="submit" value="Ok">
+
+  </form>
+{% endblock %}

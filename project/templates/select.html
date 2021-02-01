@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Select Country:
+</h1>
+<form method="POST" action="/select">
+    <select name="country">
+      <option value="france" label="France" selected></option>
+      <option value="spain" label="Spain"></option>
+      <option value="uk" label="United Kingdom"></option>
+    </select>
+    <input type="submit" value="Ok">
+
+  </form>
+{% endblock %}

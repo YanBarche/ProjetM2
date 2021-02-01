@@ -91,3 +91,22 @@ def get_data(database):
         curs.close()
         connection.close()
     return result
+
+def get_display_name(country):
+    result = None
+    database = "countries"
+    display = ""
+    try:
+        connection = Connection_Database()
+        curs = connection.cursor()
+        query = "SELECT display_name,data_name FROM {} Where name=?".format(database)
+        curs.execute(query,(country,))
+        result = curs.fetchone()
+       
+    except mariadb.Error as e:
+        print(f"Error connecting to MariaDB Platform: {e}")
+        sys.exit(1)
+    finally:
+        curs.close()
+        connection.close()
+    return result

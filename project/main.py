@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,request
 from flask_login import login_required, current_user
-from db_loging import Connection_Database,get_data
+from db_loging import Connection_Database,get_data,get_display_name
+from utils import get_data_country
 import datetime
 main = Blueprint('main', __name__)
+@main.route('/')
 @main.route('/index')
 def index():
     return render_template('index.html')
@@ -12,45 +14,39 @@ def index():
 def profile():
     return render_template('profile.html', name=current_user.username)
 
-@main.route('/line')
-def line():
-    result = get_data("Infected_france")
+@main.route('/select')
+def select():
+    return render_template('select.html')
+
+@main.route('/select', methods=["POST"])
+def select_display():
+    country = "France"
+    if request.method == 'POST':
+        country_name = request.form["country"]
+   
     labels = [
     'JAN', 'FEB', 'MAR', 'APR',
     'MAY', 'JUN', 'JUL', 'AUG',
     'SEP', 'OCT', 'NOV', 'DEC'
     ]
-    values_infected = [0,0,0,0,0,0,0,0,0,0,0,0]
-    values_dead = [0,0,0,0,0,0,0,0,0,0,0,0]
-    for row in result:
-        insertion = row[1].strftime("%m")
-        #datee = datetime.datetime.strptime(insertion, "%Y-%m-%d")
-        month = (int)(insertion)
-        infected = row[2]
-        dead = row[3]
-        values_infected[month-1] += infected
-        values_dead[month-1] += dead
-    print(values_infected)
-    return render_template('line_test.html', title='', max=50000, labels=labels, values=values_infected)
+   
+    country = get_data_country(country_name)
+    return render_template('line_test.html', country = country,labels=labels)
 
 @main.route('/compare')
 def compare():
-    result = get_data("Infected_france")
+    return render_template('select_compare.html')
+
+@main.route('/compare', methods=["POST"])
+def compare_display():
+    country_name_first = request.form["country"]
+    country_name_second = request.form["country2"]
+    country = get_data_country(country_name_first)
+    country2 = get_data_country(country_name_second)
     labels = [
     'JAN', 'FEB', 'MAR', 'APR',
     'MAY', 'JUN', 'JUL', 'AUG',
     'SEP', 'OCT', 'NOV', 'DEC'
     ]
-    values_infected = [0,0,0,0,0,0,0,0,0,0,0,0]
-    values_dead = [0,0,0,0,0,0,0,0,0,0,0,0]
-    for row in result:
-        insertion = row[1].strftime("%m")
-        #datee = datetime.datetime.strptime(insertion, "%Y-%m-%d")
-        month = (int)(insertion)
-        infected = row[2]
-        dead = row[3]
-        values_infected[month-1] += infected
-        values_dead[month-1] += dead
-    print(values_infected)
-    return render_template('compare.html', title='', max=50000, labels=labels, values=values_infected,dead=values_dead)
-
+    
+    return render_template('compare.html', labels=labels,country=country, country2=country2)
