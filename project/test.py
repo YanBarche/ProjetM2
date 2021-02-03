@@ -1,7 +1,8 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import pymysql
+import Admin
 pymysql.install_as_MySQLdb()
 
 db = SQLAlchemy()
@@ -25,7 +26,6 @@ def create_app():
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return Users.query.get(int(user_id))
-        
     return app
 
 if __name__ == "__main__":

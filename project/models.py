@@ -11,3 +11,5 @@ class Infected_france(UserMixin,db.Model):
     date = db.Column(db.Date, unique=True)
     infected = db.Column(db.String(100))
     dead = db.Column(db.String(100))
+    country_name = db.Column(db.String(255))
+

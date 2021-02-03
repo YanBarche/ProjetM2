@@ -2,121 +2,104 @@
 {% block content %}
 <h1 style="color: black;">{{ country.name }}</h1>
 <div style="background-color : white;position: fixed; top: 200px; left: 10px;" >
-    <h1 style="color: black;">Infected People</h1>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
- <canvas id="chart" width="600" height="400"></canvas>
-    <script>
 
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
+  <canvas id="chart" width="600" height="400"></canvas>
+  <script>
+    var canvas = document.getElementById('chart');
       // bar chart data
-      var barData = {
+    var barData = {
+      labels : [
+        {% for item in labels %}
+          "{{ item }}",
+        {% endfor %}
+      ],
+      datasets : [
+      {
+          label: "{{ country.name }}",
+          backgroundColor: "red",
+          lineTension: 0.1,
+          borderColor: "red",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "black",
+          pointBackgroundColor: "red",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          pointHitRadius: 10,
+          data: [ 
+            {% for item in country.values_dead %}
+              {{ item }},
+            {% endfor %}
+          ],
+        },
+      ]
+    };
+    var option = {
+	    showLines: true
+    };
+    var myLineChart = new Chart(canvas,{
+      type:'bar',
+      data:barData,
+      options:option
+    });
+
+    </script>
+</div>
+
+<div style="background-color : white;position: fixed; top: 200px; left: 1250px;" >
+
+ <canvas id="Chart2" width="600" height="400"></canvas>
+    <script>
+      var canvas2 = document.getElementById('Chart2');
+      // bar chart data
+      var barData2 = {
         labels : [
           {% for item in labels %}
             "{{ item }}",
           {% endfor %}
         ],
 
-        datasets : [{
-          //fillColor: "rgba(255,0,0,0.2)",
-          strokeColor: "rgba(250,187,205,1)", //couleur de la ligne
-          pointColor: "rgba(255,0,0,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#EEE",
-          pointHighlightStroke: "rgba(1,187,205,1)",
-          bezierCurve : false,
-          data : [
-	    {% for item in country.values_infected %}
-              {{ item }},
-            {% endfor %}]
-          }
-        ]
-      }
-
-      Chart.defaults.global.animationSteps = 50;
-      Chart.defaults.global.tooltipYPadding = 16;
-      Chart.defaults.global.tooltipCornerRadius = 0;
-      Chart.defaults.global.tooltipTitleFontStyle = "normal";
-      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-      Chart.defaults.global.animationEasing = "easeOutBounce";
-      Chart.defaults.global.responsive = false;
-      Chart.defaults.global.scaleLineColor = "black";
-      Chart.defaults.global.scaleFontSize = 16;
-      // get bar chart canvas
-      var mychart = document.getElementById("chart").getContext("2d");
-
-      steps = 10
-      max = {{ country.max_infected }}
-      // draw bar chart
-      var LineChartDemo = new Chart(mychart).Bar(barData, {
-        scaleOverride: true,
-        scaleSteps: steps,
-        scaleStepWidth: Math.ceil(max / steps),
-        scaleStartValue: 0,
-        scaleShowVerticalLines: true,
-        scaleShowGridLines : true,
-        barShowStroke : true,
-        scaleShowLabels: true,
-        bezierCurve: false,
-      });
-
-    </script>
-</div>
-<div style="background-color : white;position: fixed; top: 200px; left: 1250px;" >
-  <h1 style="color: black;"> Dead People </h1>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
-<canvas id="chart2" width="600" height="400"></canvas>
-  <script>
-
-    // bar chart data
-    var deadData = {
-      labels : [
-        {% for item in labels %}
-          "{{ item }}",
-        {% endfor %}
-      ],
-
-      datasets : [
+        datasets : [
         {
-        fillColor: "red",
-        strokeColor: "red", //couleur de la ligne
-        pointColor: "black",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#EEE",
-        pointHighlightStroke: "rgba(1,187,205,1)",
-        bezierCurve : false,
-        data : [
-          {% for item in country.values_dead %}
-            {{ item }},
-          {% endfor %}]
+            label: "{{ country.name }}",
+            lineTension: 0.1,
+            backgroundColor: "blue",
+            borderColor: "blue",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "black",
+            pointBackgroundColor: "blue",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            pointHitRadius: 10,
+            data: [ {% for item in country.values_infected %}
+              {{ item }},
+            {% endfor %}
+          ],
         }
       ]
-    }
-
-    Chart.defaults.global.animationSteps = 50;
-    Chart.defaults.global.tooltipYPadding = 16;
-    Chart.defaults.global.tooltipCornerRadius = 0;
-    Chart.defaults.global.tooltipTitleFontStyle = "normal";
-    Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-    Chart.defaults.global.animationEasing = "easeOutBounce";
-    Chart.defaults.global.responsive = false;
-    Chart.defaults.global.scaleLineColor = "black";
-    Chart.defaults.global.scaleFontSize = 16;
-    // get bar chart canvas
-    var mychart2 = document.getElementById("chart2").getContext("2d");
-
-    steps = 10
-    max = {{ country.max_dead }}
-    // draw bar chart
-    var LineChartDemo2 = new Chart(mychart2).Bar(deadData, {
-      scaleOverride: true,
-      scaleSteps: steps,
-      scaleStepWidth: Math.ceil(max / steps),
-      scaleStartValue: 0,
-      scaleShowVerticalLines: true,
-      scaleShowGridLines : true,
-      barShowStroke : true,
-      scaleShowLabels: true,
-      bezierCurve: false,
-    });
+    };
+    var option = {
+	showLines: true
+};
+var BarChart = new Chart(canvas2,{
+  type:'bar',
+	data:barData2,
+  options:option
+});
 
   </script>
 

@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template,request
 from flask_login import login_required, current_user
-from db_loging import Connection_Database,get_data,get_display_name
 from utils import get_data_country
 import datetime
+from models import Infected_france
+from test import db
 main = Blueprint('main', __name__)
 @main.route('/')
 @main.route('/index')
@@ -20,6 +21,7 @@ def select():
 
 @main.route('/select', methods=["POST"])
 def select_display():
+    
     country = "France"
     if request.method == 'POST':
         country_name = request.form["country"]
