@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template,request
 from flask_login import login_required, current_user
-from utils import get_data_country
+from utils import get_data_country, is_admin
 import datetime
-from models import Infected_france
+from models import Infected_france,Users
 from test import db
 main = Blueprint('main', __name__)
 @main.route('/')

@@ -1,16 +1,22 @@
 from flask import Flask, request, render_template, g
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
+from flask_admin import Admin
+
+ 
 import pymysql
-import Admin
+
 pymysql.install_as_MySQLdb()
 
 db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
+    admin = Admin(name='My App')
+    # Add views here
     app.config['SECRET_KEY'] = "kcavnjgnjvgkldm;c,kefjva"
     app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:testyan@localhost/projetm2"
     db.init_app(app)
+    
     from auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
@@ -20,8 +26,10 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    from models import Users
-
+    from models import Users,MyModelView
+    from admin_models import MyAdminIndexView
+    admin.init_app(app,index_view=MyAdminIndexView())
+    admin.add_view(MyModelView(Users,db.session))
     @login_manager.user_loader
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user

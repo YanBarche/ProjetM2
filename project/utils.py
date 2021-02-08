@@ -1,7 +1,8 @@
 import datetime
-from models import Infected_france
+from models import Infected_france,Users
 from test import db
-
+from flask_login import current_user
+from functools import wraps
 def get_data_country(Name):
     result = db.session.query(Infected_france).filter_by(country_name = Name).all()
     values_infected = [0,0,0,0,0,0,0,0,0,0,0,0]
@@ -16,3 +17,8 @@ def get_data_country(Name):
        
     country={'name':Name,'values_infected':values_infected,'values_dead':values_dead}
     return country
+def is_admin():
+    user = Users.query.filter_by(id = current_user.get_id()).first()
+    if user is None:
+        return False
+    return user.admin
