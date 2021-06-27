@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.slidecontainer {
+   /* Width of the outside container */
+  float:left;
+}
+
+.slidecontainer2 {
+  float:left;
+  margin-left:50px;
+}
+ 
+.slidecontainer, .slidecontainer2, .confirm {
+  width: 150px;
+  height: 100px;   
+}
+.confirm{
+  float: left;
+  margin-left: 50px;
+}
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 5px; /* Specified height */
+  background: #000000; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 10; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  border-radius: 3px;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 10px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #ffffff; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 5px;
+}
+
+.slider::-moz-range-thumb {
+  width: 5px; /* Set a specific slider handle width */
+  height: 5px; /* Slider handle height */
+  background: #000000; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 5px;
+}
+</style>
+<form method="POST" action="/filter">
+
+<div class="slidecontainer">
+  <p>Infected people<input type="range" min="{{ infected.minimum }}" max="{{ infected.maximum }}" value="{{ infected.average }}" class="slider" id="infected" name="infected"></p>
+  <p>Value: <span id="infected_value"></span></p>
+</div>
+<div class="slidecontainer2">
+  <p>Dead people<input type="range" min="{{ dead.minimum }}" max="{{ dead.maximum }}" value="{{ dead.average }}" class="slider" id="dead" name="dead"></p>
+  <p>Value: <span id="dead_value"></span></p>
+</div>
+<input type="date" id="start" name="date">
+<div class="confirm">
+  <input type="submit" value="Confirm">
+</div> 
+</form>
+<script>
+  var slider = document.getElementById("infected");
+  var output = document.getElementById("infected_value");
+  output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+  }
+  var slider_dead = document.getElementById("dead");
+  var output_dead = document.getElementById("dead_value");
+  output_dead.innerHTML = slider_dead.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+  slider_dead.oninput = function() {
+    output_dead.innerHTML = this.value;
+  }
+</script>
+{% endblock %}

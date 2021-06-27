@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div style="background-color : white">
-    <h1 style="color: black;">{{ country.name }} and {{ country2.name }}</h1>
+    <h1 class="d-flex justify-content-center" style="color: black;">Comparison between {{ country.name }} and {{ country2.name }}</h1>
+    <br/>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
 
-    <canvas id="myChart" width="400" height="250"></canvas>
+    <canvas id="myChart" width="1000%" height="400%"></canvas>
     <script>
     var canvas = document.getElementById('myChart');
 var data = {
@@ -64,7 +65,9 @@ var data = {
 };
 
 var option = {
-	showLines: true
+	showLines: true,
+  animation:false
+  
 };
 var myLineChart = new Chart(canvas,{
   type:'line',
@@ -73,11 +76,17 @@ var myLineChart = new Chart(canvas,{
 });
 
 
+  
+var dl = document.createElement('a');
+dl.href = myLineChart.toBase64Image();
+dl.download = `Comparison_{{ country.name }}_{{ country2.name }}.png` //'my_file_name.png';
+  
 
 
-
-
+// Trigger the download
 
   </script>
 </div>
+<br/>
+<button type=button style="background: #002432; color: white" class="btn" id='link' onclick="dl.click()">Save as png</button>
 {% endblock %}

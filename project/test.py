@@ -9,6 +9,12 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 db = SQLAlchemy()
+SQLALCHEMY_ENGINE_OPTIONS = {
+    "max_overflow": 15,
+    "pool_pre_ping": True,
+    "pool_recycle": 60 * 60,
+    "pool_size": 30,
+}
 def create_app():
     app = Flask(__name__)
     admin = Admin(name='My App')

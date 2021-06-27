@@ -22,3 +22,17 @@ def is_admin():
     if user is None:
         return False
     return user.admin
+
+def get_infected_numbers():
+    infected = db.session.execute("Select max(infected) as maximum, min(infected) as minimum from infected_france")
+    for row in infected:
+        avg = (int)((row[0]+row[1])/2)
+        data ={ "maximum" : row[0], "minimum": row[1], "average":avg}
+        return data
+
+def get_dead_numbers():
+    dead = db.session.execute("Select max(dead) as maximum, min(dead) as minimum from infected_france")
+    for row in dead:
+        avg = (int)((row[0]+row[1])/2)
+        data ={ "maximum" : row[0], "minimum": row[1], "average":avg}
+        return data

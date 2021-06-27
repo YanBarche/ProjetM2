@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template,request
 from flask_login import login_required, current_user
-from utils import get_data_country, is_admin
+from utils import get_data_country, is_admin, get_infected_numbers,get_dead_numbers
 import datetime
 from models import Infected_france,Users
 from test import db
@@ -52,3 +52,23 @@ def compare_display():
     ]
     
     return render_template('compare.html', labels=labels,country=country, country2=country2)
+
+@main.route('/filter')
+def filter():
+    infected_numbers = get_infected_numbers()
+    dead_numbers = get_dead_numbers()
+    return render_template('filter.html',infected = infected_numbers, dead = dead_numbers)
+
+@main.route('/filter', methods=["POST"])
+def filter_selected():
+    infected = request.form["infected"]
+    dead = request.form["dead"]
+    date = request.form["date"]
+    insertion = date.strftime("%m")
+    month = (int)(insertion)
+    countries = db.session.execute("Select country_name from infected_france")
+    values=[]
+    for country in countries:
+        values.append(get_data_country(country[0]))
+    print(values)
+    return values[0]

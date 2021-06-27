@@ -6,62 +6,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask Auth Example</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" /> 
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
+
+<style>
+    html,body{height:100%;}
+    .container {
+    height:100%;
+    background-color: yellow;
+}
+.fill{
+    min-height:100%;
+    min-height: 80vh; 
+    display: flex;
+}
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  background-color:#990000;
+  display: flex;
+  align-items: center;
+}
+</style>
 
 <body>
     <section class="hero is-primary is-fullheight">
-
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-
-                    <div class="navbar-end">
-                        <a href="{{ url_for('main.index') }}" class="navbar-item">
+    <nav style="color: white;background: #002432" class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a style="color: white" href="{{ url_for('main.index') }}" class="nav-link">
                             Home
                         </a>
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                    </li>
+                    <li class="nav-item">{% if current_user.is_authenticated %}
+                        <a style="color: white" href="{{ url_for('main.profile') }}" class="nav-link">
                             Profile
                         </a>
                         {% endif %}
+                    </li>
+                    <li class="nav-item">
                         {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.select') }}" class="navbar-item">
+                        <a style="color: white" href="{{ url_for('main.select') }}" class="nav-link">
                             Select
                         </a>
                         {% endif %}
-                        
+                    </li>
+                    <li class="nav-item">
                         {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.compare') }}" class="navbar-item">
+                        <a style="color: white" href="{{ url_for('main.compare') }}" class="nav-link">
                             Compare
                         </a>
                         {% endif %}
+                    </li>
+                    <li class="nav-item">
                         {% if not current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                        <a style="color: white" href="{{ url_for('auth.login') }}" class="nav-link">
                             Login
                         </a>
-                        <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white" href="{{ url_for('auth.signup') }}" class="nav-link">
                             Sign Up
                         </a>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                            Logout
-                        </a>
-                        {% endif %}
-                    </div>
-                    
-                </div>
-            </nav>
-        </div>
-
-        <div class="hero-body">
-            <div class="container has-text-centered">
-               {% block content %}
-               {% endblock %}
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
+                    <li class="nav-item">
+                        <div class="d-flex">
+                            {% if current_user.is_authenticated %}
+                            <a style="color: white" href="{{ url_for('auth.logout') }}" class="nav-link">
+                                Logout 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="mx-2 bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                </svg>                            {% endif %}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+               
             </div>
         </div>
+    </nav>
+    <div class="fill container-fluid flex-column align-items-center justify-content-center">
+            {% block content %}
+            {% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     </section>
 </body>
 
