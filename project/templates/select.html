@@ -1,16 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Select Country:
-</h1>
-<form method="POST" action="/select">
-    <select name="country">
-      <option value="france" label="France" selected></option>
-      <option value="spain" label="Spain"></option>
-      <option value="uk" label="United Kingdom"></option>
-    </select>
-    <input type="submit" value="Ok">
+<div class="mt-5 container flex-column align-items-center" style="display: flex;">
+  <h1 class="display-4">
+    Country data
+  </h1>
+  <p class="lead mb-3">Select a country to analyze</p>
+  <form class="row" method="POST" action="/select">
+    <div class="col-10">
+      <select class="form-select" name="country">
+        <option value="France" label="France" selected></option>
+        <option value="Spain" label="Spain"></option>
+        <option value="United Kingdom" label="United Kingdom"></option>
+      </select>
+    </div>
+    <div class="col-1">
+      <input class="btn btn-primary" type="submit" value="Ok">
+    </div>
 
   </form>
-{% endblock %}
+  {% endblock %}

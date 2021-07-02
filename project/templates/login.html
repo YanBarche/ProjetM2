@@ -8,23 +8,25 @@
 {% endwith %}
 {% block content %}
 <div class="mt-5 container flex flex-column align-items-center" style="display: flex;">
-<div class="card" style="width: 25rem;">
-    <h3 class="card-header">
-        Login
-    </h3>
-    <div class="card-body mb-3">
-          <form method="POST" action="/login">
+    <div class="card" style="width: 25rem;">
+        <h3 class="card-header">
+            Login
+        </h3>
+        <div class="card-body mb-3">
+            <form method="POST" action="/login">
                 <div class="field mb-3">
                     <div class="control">
                         <label for="username" class="form-label">Username</label>
-                        <input class="form-control" type="string" name="username" id="username" placeholder="Enter you username" autofocus="">
+                        <input class="form-control" type="string" name="username" id="username"
+                            placeholder="Enter you username" autofocus="">
                     </div>
                 </div>
-                
+
                 <div class="field mb-3">
                     <div class="control">
                         <label for="password" class="form-label">Password</label>
-                        <input class="form-control" type="password" id="password" name="password" placeholder="Enter your Password">
+                        <input class="form-control" type="password" id="password" name="password"
+                            placeholder="Enter your password">
                     </div>
                 </div>
                 <div class="field">
@@ -33,10 +35,12 @@
                         Remember me
                     </label>
                 </div>
-                <br/>
-                <button class="btn btn-primary is-block is-info is-large is-fullwidth">Login</button>
+                <br />
+                <div class="flex flex-column align-items-center" style="display: flex;">
+                    <button class="btn btn-primary is-block is-info is-large is-fullwidth">Login</button>
+                </div>
             </form>
+        </div>
     </div>
-</div>
 </div>
 {% endblock %}

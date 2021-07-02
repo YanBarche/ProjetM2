@@ -16,10 +16,12 @@ def profile():
     return render_template('profile.html', name=current_user.username)
 
 @main.route('/select')
+@login_required
 def select():
     return render_template('select.html')
 
 @main.route('/select', methods=["POST"])
+@login_required
 def select_display():
     
     country = "France"
@@ -36,10 +38,12 @@ def select_display():
     return render_template('line_test.html', country = country,labels=labels)
 
 @main.route('/compare')
+@login_required
 def compare():
     return render_template('select_compare.html')
 
 @main.route('/compare', methods=["POST"])
+@login_required
 def compare_display():
     country_name_first = request.form["country"]
     country_name_second = request.form["country2"]
@@ -54,12 +58,14 @@ def compare_display():
     return render_template('compare.html', labels=labels,country=country, country2=country2)
 
 @main.route('/filter')
+@login_required
 def filter():
     infected_numbers = get_infected_numbers()
     dead_numbers = get_dead_numbers()
     return render_template('filter.html',infected = infected_numbers, dead = dead_numbers)
 
 @main.route('/filter', methods=["POST"])
+@login_required
 def filter_selected():
     infected = request.form["infected"]
     dead = request.form["dead"]
