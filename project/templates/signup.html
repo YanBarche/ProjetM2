@@ -3,29 +3,39 @@
 {% block content %}
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-    <div class="notification is-danger">
-        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-    </div>
+<div class="notification is-danger">
+    {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+</div>
 {% endif %}
 {% endwith %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
-    <div class="box">
-        <form method="POST" action="/signup">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="string" name="username" placeholder="username" autofocus="">
+<div class="mt-5 container flex flex-column align-items-center" style="display: flex;">
+    <div class="card" style="width: 25rem;">
+        <h3 class="card-header">
+            Sign Up
+        </h3>
+        <div class="card-body mb-3">
+            <form method="POST" action="/signup">
+                <div class="field mb-3">
+                    <div class="control">
+                        <label for="username" class="form-label">Username</label>
+                        <input class="form-control" type="string" name="username" id="username"
+                            placeholder="Enter you username" autofocus="">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
+                <div class="field mb-3">
+                    <div class="control">
+                        <label for="password" class="form-label">Password</label>
+                        <input class="form-control" type="password" id="password" name="password"
+                            placeholder="Enter your Password">
+                    </div>
                 </div>
-            </div>
-
-            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
-        </form>
+                <br />
+                <div class="flex flex-column align-items-center" style="display: flex;">
+                    <button class="btn btn-primary is-block">Sign Up</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}
