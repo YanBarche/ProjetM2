@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_admin import Admin
+from flask_wtf.csrf import CSRFProtect
 
  
 import pymysql
@@ -17,6 +18,8 @@ SQLALCHEMY_ENGINE_OPTIONS = {
 }
 def create_app():
     app = Flask(__name__)
+    csrf = CSRFProtect()
+    csrf.init_app(app)
     admin = Admin(name='My App')
     # Add views here
     app.config['SECRET_KEY'] = "kcavnjgnjvgkldm;c,kefjva"

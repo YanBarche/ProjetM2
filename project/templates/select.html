@@ -14,9 +14,9 @@
         <option value="United Kingdom" label="United Kingdom"></option>
       </select>
     </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="col-1">
       <input class="btn btn-primary" type="submit" value="Ok">
     </div>
-
   </form>
   {% endblock %}
