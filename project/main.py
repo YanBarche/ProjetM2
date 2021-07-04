@@ -24,7 +24,6 @@ def select():
 @login_required
 def select_display():
     
-    country = "France"
     if request.method == 'POST':
         country_name = request.form["country"]
    
@@ -63,18 +62,3 @@ def filter():
     infected_numbers = get_infected_numbers()
     dead_numbers = get_dead_numbers()
     return render_template('filter.html',infected = infected_numbers, dead = dead_numbers)
-
-@main.route('/filter', methods=["POST"])
-@login_required
-def filter_selected():
-    infected = request.form["infected"]
-    dead = request.form["dead"]
-    date = request.form["date"]
-    insertion = date.strftime("%m")
-    month = (int)(insertion)
-    countries = db.session.execute("Select country_name from infected_france")
-    values=[]
-    for country in countries:
-        values.append(get_data_country(country[0]))
-    print(values)
-    return values[0]
