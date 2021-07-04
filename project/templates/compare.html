@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<div style="background-color : white">
-    <h1 class="d-flex justify-content-center" style="color: black;">Comparison between {{ country.name }} and {{ country2.name }}</h1>
+<div class="mt-5 container flex-column align-items-center" style="display: flex;">
+  <h1 class="display-5">
+    Comparison between {{ country.name }} and {{ country2.name }}
+  </h1>
+  <p class="lead mb-3">Regarding the number of deaths due to covid</p>
     <br/>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
 
@@ -19,17 +22,17 @@ var data = {
             label: "{{ country.name }}",
             fill:false,
             lineTension: 0.1,
-            borderColor: "rgba(75,192,192,1)",
+            borderColor: "#040b3c",
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,192,192,1)",
-            pointBackgroundColor: "#fff",
+            pointBorderColor: "#040b3c",
+            pointBackgroundColor: "#040b3c",
             pointBorderWidth: 1,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBackgroundColor: "#040b3c",
+            pointHoverBorderColor: "#040b3c",
             pointHoverBorderWidth: 2,
             pointRadius: 5,
             pointHitRadius: 10,
@@ -42,17 +45,17 @@ var data = {
             label: "{{ country2.name }}",
             fill:false,
             lineTension: 0.1,
-            borderColor: "red",
+            borderColor: "#d40404",
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderColor: "black",
-            pointBackgroundColor: "red",
+            pointBorderColor: "#d40404",
+            pointBackgroundColor: "#d40404",
             pointBorderWidth: 1,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBackgroundColor: "#d40404",
+            pointHoverBorderColor: "#d40404",
             pointHoverBorderWidth: 2,
             pointRadius: 5,
             pointHitRadius: 10,

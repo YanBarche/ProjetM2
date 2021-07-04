@@ -14,7 +14,6 @@
     html,body{height:100%;}
     .container {
     height:100%;
-    background-color: yellow;
 }
 .fill{
     min-height:100%;
@@ -31,8 +30,7 @@
 </style>
 
 <body>
-    <section class="hero is-primary is-fullheight">
-    <nav style="color: white;background: #002432" class="navbar navbar-expand-lg navbar-light">
+    <nav style="color: white;background: #040b3c" class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -92,15 +90,18 @@
             </div>
         </div>
     </nav>
-    <div class="fill container-fluid flex-column align-items-center justify-content-center">
-            {% block content %}
-            {% endblock %}
-    </div>
+        <div class="container">
+                {% block content %}
+                {% endblock %}
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     </section>
+=======
+>>>>>>> 5c93e918d9bd24755fa29c201b9208dd5b19d463
 </body>
 
 </html>

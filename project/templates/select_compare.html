@@ -1,21 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Select Country:
+<div class="mt-5 container flex-column align-items-center" style="display: flex;">
+<h1 class="display-4">
+  Country comparison
 </h1>
-<form method="POST" action="/compare">
-    <select id=country name="country">
+<br />
+<p class="lead mb-3">Select 2 countries you want to compare</p>
+<form class="row" method="POST" action="/compare">
+  <div class="col-5">
+    <select class="form-select" id=country name="country">
       <option value="france" label="France" selected></option>
       <option value="spain" label="Spain"></option>
       <option value="uk" label="United Kingdom"></option>
     </select>
-    <select name="country2">
-        <option value="france" label="France" selected></option>
-        <option value="spain" label="Spain"></option>
-        <option value="uk" label="United Kingdom"></option>
-      </select>
-    <input type="submit" value="Ok">
-
-  </form>
+  </div>
+  <div class="col-5">
+    <select class="form-select" name="country2">
+      <option value="france" label="France" selected></option>
+      <option value="spain" label="Spain"></option>
+      <option value="uk" label="United Kingdom"></option>
+    </select>
+  </div>
+  <div class="col">
+    <input class="btn btn-primary" type="submit" value="Ok">
+  </div>
+</form>
+</div>
 {% endblock %}

@@ -1,107 +1,126 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 style="color: black;">{{ country.name }}</h1>
-<div style="background-color : white;position: fixed; top: 200px; left: 10px;" >
-
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
-  <canvas id="chart" width="600" height="400"></canvas>
-  <script>
-    var canvas = document.getElementById('chart');
-      // bar chart data
-    var barData = {
-      labels : [
-        {% for item in labels %}
+<div class="mt-5 container flex-column" style="display: flex;">
+  <h1 class="flex-column align-items-center" style="display: flex;color: black;">{{ country.name }}</h1>
+  <br />
+  <div class="container mt-4">
+    <div class="row justify-content-start">
+      <div class="col-6" style="background-color : white;">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
+        <canvas id="chart" width="600" height="600"></canvas>
+        <script>
+          var canvas = document.getElementById('chart');
+          // bar chart data
+          var barData = {
+            labels: [
+              {% for item in labels %}
           "{{ item }}",
-        {% endfor %}
-      ],
-      datasets : [
-      {
-          label: "{{ country.name }}",
-          backgroundColor: "red",
-          lineTension: 0.1,
-          borderColor: "red",
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: "black",
-          pointBackgroundColor: "red",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(75,192,192,1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 5,
-          pointHitRadius: 10,
-          data: [ 
-            {% for item in country.values_dead %}
-              {{ item }},
+            {% endfor %}
+          ],
+          datasets: [
+            {
+              label: "{{ country.name }}",
+              backgroundColor: "#040b3c",
+              lineTension: 0.1,
+              borderColor: "#040b3c",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "black",
+              pointBackgroundColor: "red",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 5,
+              pointHitRadius: 10,
+              data: [
+                {% for item in country.values_infected %}
+            {{ item }},
             {% endfor %}
           ],
         },
       ]
     };
-    var option = {
-	    showLines: true
-    };
-    var myLineChart = new Chart(canvas,{
-      type:'bar',
-      data:barData,
-      options:option
-    });
+          var option = {
+            showLines: true,
+            title: {
+              display: true,
+              text: 'Number of contaminated people',
+              position: 'top',
+            },
+            legend: {
+              display: false
+            }
+          };
+          var myLineChart = new Chart(canvas, {
+            type: 'bar',
+            data: barData,
+            options: option
+          });
 
-    </script>
-</div>
-
-<div style="background-color : white;position: fixed; top: 200px; left: 1250px;" >
-
- <canvas id="Chart2" width="600" height="400"></canvas>
-    <script>
-      var canvas2 = document.getElementById('Chart2');
-      // bar chart data
-      var barData2 = {
-        labels : [
-          {% for item in labels %}
-            "{{ item }}",
-          {% endfor %}
+        </script>
+      </div>
+      <div class="col-6" style="background-color : white;">
+        <canvas id="Chart2" width="600" height="600"></canvas>
+        <script>
+          var canvas2 = document.getElementById('Chart2');
+          // bar chart data
+          var barData2 = {
+            labels: [
+              {% for item in labels %}
+          "{{ item }}",
+            {% endfor %}
         ],
 
-        datasets : [
-        {
-            label: "{{ country.name }}",
-            lineTension: 0.1,
-            backgroundColor: "blue",
-            borderColor: "blue",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "black",
-            pointBackgroundColor: "blue",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 5,
-            pointHitRadius: 10,
-            data: [ {% for item in country.values_infected %}
-              {{ item }},
+          datasets: [
+            {
+              label: "{{ country.name }}",
+              lineTension: 0.1,
+              backgroundColor: "#d40404",
+              borderColor: "#d40404",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "black",
+              pointBackgroundColor: "blue",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 5,
+              pointHitRadius: 10,
+              data: [{% for item in country.values_dead %}
+            {{ item }},
             {% endfor %}
           ],
         }
       ]
     };
-    var option = {
-	showLines: true
-};
-var BarChart = new Chart(canvas2,{
-  type:'bar',
-	data:barData2,
-  options:option
-});
+          var option = {
+            showLines: true,
+            title: {
+              display: true,
+              text: 'Number of deaths due to covid',
+              position: 'top',
+            },
+            legend: {
+              display: false
+            }
+          };
+          var BarChart = new Chart(canvas2, {
+            type: 'bar',
+            data: barData2,
+            options: option
+          });
 
-  </script>
-
+        </script>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
