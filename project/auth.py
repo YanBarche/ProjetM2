@@ -25,12 +25,6 @@ def login_post():
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
     return redirect(url_for('main.profile'))
-    """if check_password is False:
-        flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login'))
-    else:
-        session['username'] = username
-        return redirect(url_for('main.profile'))"""
 
 
 @auth.route('/signup')
@@ -54,17 +48,6 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for('main.profile'))
-    """if user_exist(username) is True:
-        flash('User already exists')
-        return redirect(url_for('auth.signup'))
-    else:
-        insert_user(username, password)
-    return redirect(url_for('auth.login'))"""
-
-#def is_logged():
-#    if session['username'] is None:
-#        return False
-#    return True
 
 @auth.route('/logout')
 @login_required
